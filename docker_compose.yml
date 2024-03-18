@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    expose:
+      - "8000"
+    env_file:
+      - docker.env
+    depends_on:
+      - db
+    networks:
+      - gutendex_network
+
+  db:
+    image: postgres:latest
+    env_file:
+      - docker.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - gutendex_network
+
+networks:
+  gutendex_network:
+
+volumes:
+  postgres_data:
